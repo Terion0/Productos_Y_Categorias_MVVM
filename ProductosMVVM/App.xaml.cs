@@ -9,6 +9,7 @@ using System.Windows;
 using ProductosMVVM.Data;
 using Microsoft.EntityFrameworkCore;
 using ProductosMVVM.Models.Services;
+using LiveChartsCore;
 
 namespace ProductosMVVM
 {
@@ -20,15 +21,33 @@ namespace ProductosMVVM
         protected override void OnStartup(StartupEventArgs e)
         {
             ServiceCollection services = new();
+
             services.AddTransient<MainWindow>();
             services.AddTransient<MainViewModel>();
-            services.AddScoped<IRepository<Producto>, Rproductos>();
-            services.AddScoped<IRepository<Categoria>, Rcategoria>();
-            services.AddScoped<IServices<Producto>, ProductoServicios>();
-            services.AddScoped<IServices<Categoria>, CategoriaServicios>();
-            services.AddScoped<SettinsService>();
-            services.AddScoped<GraphicsService>();
-                
+
+            services.AddTransient<HomeView>();
+            services.AddTransient<HomeViewModel>();
+
+            services.AddTransient<ViewOne>();
+            services.AddTransient<ViewOneModel>();
+
+
+            services.AddTransient<ViewTwo>();
+            services.AddTransient<ViewTwoModel>();
+
+            services.AddTransient<SettingsWindow>();
+            services.AddTransient<SettingsViewModel>();
+
+            services.AddTransient<ViewGraphics>();
+            services.AddTransient<GraphicsViewModel>();
+
+
+        
+            services.AddSingleton<IServices<Categoria>, CategoriaServicios>();
+            services.AddSingleton<IServices<Producto>, ProductoServicios>();
+            services.AddSingleton<SettinsService>();
+            services.AddSingleton<GraphicsService>();
+
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer("Server=localhost,1433;Database=TuBaseDeDatos;User Id=sa;Password=Interfaces-2425;TrustServerCertificate=true;"));
             var serviceProvider = services.BuildServiceProvider();
             // Solo para cargar datos dummy, quitar en aplicación en producción.

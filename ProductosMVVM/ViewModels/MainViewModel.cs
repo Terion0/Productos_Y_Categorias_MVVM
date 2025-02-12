@@ -15,28 +15,28 @@ using SkiaSharp;
 
 namespace ProductosMVVM.ViewModels
 {
-    partial class MainViewModel(IServices<Producto> serviciosP, IServices<Categoria> serviciosC, SettinsService settins, GraphicsService graphics): ObservableObject
+    partial class MainViewModel(HomeViewModel homeViewModel, ViewOneModel viewOneModel, ViewTwoModel viewTwoModel,
+       SettingsViewModel settingsViewModel, GraphicsViewModel graphicsViewModel) : ObservableObject
     {
 
 
         [ObservableProperty]
         private object _ActiveView;
 
-        public HomeViewModel HomeViewModel;
+        public HomeViewModel HomeViewModel { get; } = homeViewModel;
 
-        public ViewOneModel ViewOneModel { get; } = new ViewOneModel(serviciosC,serviciosP);
+        public ViewOneModel ViewOneModel { get; } = viewOneModel;
 
-        public ViewTwoModel ViewTwoModel { get; } = new ViewTwoModel(serviciosC);
+        public ViewTwoModel ViewTwoModel { get; } = viewTwoModel;
 
-        public SettingsViewModel ViewSettings { get; } = new SettingsViewModel(settins);
+        public SettingsViewModel ViewSettings { get; } = settingsViewModel;
 
-        public GraphicsViewModel GraphicsView { get; } = new GraphicsViewModel(graphics);
-
+        public GraphicsViewModel GraphicsView { get; } = graphicsViewModel;
 
 
 
         [RelayCommand]
-        private void ActivateHomeView() => ActiveView = new HomeViewModel(serviciosC, serviciosP);
+        private void ActivateHomeView() => ActiveView = HomeViewModel;
 
         [RelayCommand]
         private void ActiveOneView() => ActiveView =  ViewOneModel;
