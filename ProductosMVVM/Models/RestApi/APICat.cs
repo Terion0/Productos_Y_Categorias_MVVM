@@ -51,10 +51,7 @@ namespace ProductosMVVM.Models.RestApi
                     {
                         JsonElement array = doc.RootElement;
                         foreach (JsonElement jsonProduct in array.EnumerateArray())
-                        {
-                            if (!jsonProduct.GetProperty("name").GetString().Contains("string"))
-                            {
-
+                        { 
                                 Categoria producto = new Categoria
                                 {
                                     Nombre = jsonProduct.GetProperty("name").GetString(),
@@ -64,7 +61,7 @@ namespace ProductosMVVM.Models.RestApi
                             }
                         }
                     }
-                }
+                
             }
             catch (Exception ex)
             {
@@ -75,9 +72,21 @@ namespace ProductosMVVM.Models.RestApi
         }
 
 
-        public Task Remove(Categoria objeto)
+        public async Task Remove(Categoria objeto)
         {
-            throw new NotImplementedException();
+            Uri uri = new Uri($"https://api.escuelajs.co/api/v1/categories/{objeto.Id}");
+            try
+            {
+                HttpResponseMessage response = await _httpClient.DeleteAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Categoria eliminada correctamente.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción al eliminar categoria: {ex.Message}");
+            }
         }
 
         public Task Update(Categoria objeto)

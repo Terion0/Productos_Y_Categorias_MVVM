@@ -51,22 +51,22 @@ namespace ProductosMVVM.Models.RestApi
                         JsonElement array = doc.RootElement;
                         foreach (JsonElement jsonProduct in array.EnumerateArray())
                         {
-                           if (!jsonProduct.GetProperty("images")[0].GetString().Contains('<')) {
-                                Producto producto = new Producto
+                            string imagenFiltrar = jsonProduct.GetProperty("images")[0].GetString();
+                            imagenFiltrar = imagenFiltrar.Replace("[", "").Replace("]", "").Replace("\\", "").Replace("\"", "");
+                            Producto producto = new Producto
                                 {
-
                                     Nombre = jsonProduct.GetProperty("title").GetString(),
                                     Descripcion = jsonProduct.GetProperty("description").GetString(),
                                     Precio = jsonProduct.GetProperty("price").GetInt32(),
                                     IdCategoria = jsonProduct.GetProperty("category").GetProperty("id").GetInt32(),
                                     IdProducto = jsonProduct.GetProperty("id").GetInt32(),
-                                    Imagen = jsonProduct.GetProperty("images")[0].GetString()
+                                    Imagen = imagenFiltrar
                                 };
-                                deAPI.Add(producto);
+                             deAPI.Add(producto);
                             }                       
                         }
 
-                    }
+                    
                 }
             }
             catch (Exception ex)
@@ -78,14 +78,27 @@ namespace ProductosMVVM.Models.RestApi
         }
         
 
-        public Task Remove(Producto objeto)
+        public async Task Remove(Producto objeto)
         {
-            throw new NotImplementedException();
+            Uri uri = new Uri($"https://api.escuelajs.co/api/v1/products/{objeto.IdProducto}");
+            try
+            {
+                HttpResponseMessage response = await _httpClient.DeleteAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Producto eliminado correctamente.");
+                }     
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Excepción al eliminar el producto: {ex.Message}");
+            }
         }
 
-        public Task Update(Producto objeto)
+        public async Task Update(Producto objeto)
         {
             throw new NotImplementedException();
+
         }
     }
 }

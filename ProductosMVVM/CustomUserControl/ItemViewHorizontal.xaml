@@ -20,14 +20,14 @@
                     BorderThickness="1" 
                     BorderBrush="{Binding BorderBrush, ElementName=root}">
                     <StackPanel Orientation="Horizontal">
-                        <Image 
+                     <Image 
                      Source="{Binding Imagen, ElementName=root}" 
                        Width="50" 
                      Height="50" 
                        Margin="0,0,10,0" />
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock 
-             Text="{Binding Titulo, ElementName=root}"  Width="90" Height="30" 
+                            <TextBlock  TextWrapping="Wrap"
+             Text="{Binding Titulo, ElementName=root}"  Height="30"  Width="100" 
              FontWeight="Bold" />
                          
                         </StackPanel>
