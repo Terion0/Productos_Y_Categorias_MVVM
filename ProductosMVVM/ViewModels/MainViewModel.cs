@@ -15,22 +15,23 @@ using ProductosMVVM.Models.RestApi;
 
 namespace ProductosMVVM.ViewModels
 {
-    partial class MainViewModel(SettinsService settins, GraphicsService graphics, IServices<Producto> prodacts, IServices<Categoria> categoris): ObservableObject
+    partial class MainViewModel(HomeViewModel homeViewModel, ViewOneModel viewOneModel, ViewTwoModel viewTwoModel, 
+        SettingsViewModel settingsViewModel, GraphicsViewModel graphicsViewModel ): ObservableObject
     {
 
 
         [ObservableProperty]
         private object _ActiveView;
 
-        public HomeViewModel HomeViewModel { get; } = new HomeViewModel(categoris, prodacts);
+        public HomeViewModel HomeViewModel { get; } = homeViewModel;
 
-        public ViewOneModel ViewOneModel { get; } = new ViewOneModel(prodacts);
+        public ViewOneModel ViewOneModel { get; } = viewOneModel;
 
-        public ViewTwoModel ViewTwoModel { get; } = new ViewTwoModel(categoris);
+        public ViewTwoModel ViewTwoModel { get; } = viewTwoModel;
 
-        public SettingsViewModel ViewSettings { get; } = new SettingsViewModel(settins);
+        public SettingsViewModel ViewSettings { get; } = settingsViewModel;
 
-        public GraphicsViewModel GraphicsView { get; } = new GraphicsViewModel(graphics);
+        public GraphicsViewModel GraphicsView { get; } = graphicsViewModel;
 
 
 

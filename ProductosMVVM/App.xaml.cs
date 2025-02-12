@@ -20,14 +20,33 @@ namespace ProductosMVVM
         protected override void OnStartup(StartupEventArgs e)
         {
             ServiceCollection services = new();
+
+
             services.AddTransient<MainWindow>();
             services.AddTransient<MainViewModel>();
-            services.AddScoped<IAPIRest<Producto>, APIProd>();
-            services.AddScoped<IAPIRest<Categoria>, APICat>();
-            services.AddScoped<IServices<Categoria>, CategoriaServicios>();
-            services.AddScoped<IServices<Producto>, ProductoServicios>();
-            services.AddScoped<SettinsService>();
-            services.AddScoped<GraphicsService>();
+
+            services.AddTransient<HomeView>();
+            services.AddTransient<HomeViewModel>();
+
+            services.AddTransient<ViewOne>();
+            services.AddTransient<ViewOneModel>();
+
+            services.AddTransient<ViewTwo>();
+            services.AddTransient<ViewTwoModel>();
+
+            services.AddTransient<SettingsWindow>();
+            services.AddTransient<SettingsViewModel>();
+
+            services.AddTransient<ViewGraphics>();
+            services.AddTransient<GraphicsViewModel>();
+
+
+            services.AddSingleton<IAPIRest<Producto>, APIProd>();
+            services.AddSingleton<IAPIRest<Categoria>, APICat>();
+            services.AddSingleton<IServices<Categoria>, CategoriaServicios>();
+            services.AddSingleton<IServices<Producto>, ProductoServicios>();
+            services.AddSingleton<SettinsService>();
+            services.AddSingleton<GraphicsService>();
                 
             var serviceProvider = services.BuildServiceProvider();
            
