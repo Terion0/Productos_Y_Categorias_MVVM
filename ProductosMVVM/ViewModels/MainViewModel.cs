@@ -15,18 +15,18 @@ using ProductosMVVM.Models.RestApi;
 
 namespace ProductosMVVM.ViewModels
 {
-    partial class MainViewModel(SettinsService settins, GraphicsService graphics, IAPIRest<Producto> prodacts, IAPIRest<Categoria> categoris): ObservableObject
+    partial class MainViewModel(SettinsService settins, GraphicsService graphics, IServices<Producto> prodacts, IServices<Categoria> categoris): ObservableObject
     {
 
 
         [ObservableProperty]
         private object _ActiveView;
 
-        public HomeViewModel HomeViewModel;
+        public HomeViewModel HomeViewModel { get; } = new HomeViewModel(categoris, prodacts);
 
-        public ViewOneModel ViewOneModel;
+        public ViewOneModel ViewOneModel { get; } = new ViewOneModel(prodacts);
 
-        public ViewTwoModel ViewTwoModel { get; } 
+        public ViewTwoModel ViewTwoModel { get; } = new ViewTwoModel(categoris);
 
         public SettingsViewModel ViewSettings { get; } = new SettingsViewModel(settins);
 
@@ -36,13 +36,13 @@ namespace ProductosMVVM.ViewModels
 
 
         [RelayCommand]
-        private void ActivateHomeView() => ActiveView = new HomeViewModel(categoris, prodacts);
+        private void ActivateHomeView() => ActiveView = HomeViewModel;
+             
+        [RelayCommand]
+        private void ActiveOneView() => ActiveView = ViewOneModel;
 
         [RelayCommand]
-        private void ActiveOneView() => ActiveView = new ViewOneModel(prodacts);
-
-        [RelayCommand]
-        private void ActiveTwoView() => ActiveView =  new ViewTwoModel(categoris);
+        private void ActiveTwoView() => ActiveView = ViewTwoModel;
 
         [RelayCommand]
         private void UnactivateView() => ActiveView = null;

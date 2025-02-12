@@ -14,7 +14,7 @@ namespace ProductosMVVM.ViewModels
 {
     partial class ViewTwoModel: ObservableObject
     {
-        private readonly IAPIRest<Categoria> servicesC;
+        private readonly IServices<Categoria> servicesC;
         [ObservableProperty]
         public Categoria _CategoriaSeleccionado;
         [ObservableProperty]
@@ -27,11 +27,10 @@ namespace ProductosMVVM.ViewModels
         public string _IdCat = "";
 
 
-        public ViewTwoModel(IAPIRest<Categoria> servicesC)
+        public ViewTwoModel(IServices<Categoria> servicesC)
         {
             this.servicesC = servicesC;
             Sinchronice();
-
         }
         private async void Sinchronice()
         {

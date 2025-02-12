@@ -18,7 +18,7 @@ namespace ProductosMVVM.ViewModels
 {
     partial class ViewOneModel : ObservableObject
     {
-        private readonly IAPIRest<Producto> servicesP;
+        private readonly IServices<Producto> servicesP;
 
         [ObservableProperty]
         public Producto _ProductoSeleccionado;
@@ -41,7 +41,7 @@ namespace ProductosMVVM.ViewModels
         [ObservableProperty]
         public string _ImagenProd = "";
 
-        public ViewOneModel(IAPIRest<Producto> servicesP)
+        public ViewOneModel(IServices<Producto> servicesP)
         {
             this.servicesP = servicesP;
             Sinchronice();

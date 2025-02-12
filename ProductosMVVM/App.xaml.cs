@@ -22,10 +22,10 @@ namespace ProductosMVVM
             ServiceCollection services = new();
             services.AddTransient<MainWindow>();
             services.AddTransient<MainViewModel>();
-            services.AddTransient<IAPIRest<Producto>, APIProd>();
-            services.AddTransient<IAPIRest<Categoria>, APICat>();
- 
-           
+            services.AddScoped<IAPIRest<Producto>, APIProd>();
+            services.AddScoped<IAPIRest<Categoria>, APICat>();
+            services.AddScoped<IServices<Categoria>, CategoriaServicios>();
+            services.AddScoped<IServices<Producto>, ProductoServicios>();
             services.AddScoped<SettinsService>();
             services.AddScoped<GraphicsService>();
                 

@@ -15,8 +15,8 @@ namespace ProductosMVVM.ViewModels
 {
     partial class HomeViewModel : ObservableObject
     {
-        private readonly IAPIRest<Categoria> servicesC;
-        private readonly IAPIRest<Producto> servicesP;
+        private readonly IServices<Categoria> servicesC;
+        private readonly IServices<Producto> servicesP;
         [ObservableProperty]
         public ObservableCollection<Producto> _ListaProductos = new();
 
@@ -26,7 +26,7 @@ namespace ProductosMVVM.ViewModels
         [ObservableProperty]
         public Categoria _CategoriaSeleccionada = null;
 
-        public HomeViewModel(IAPIRest<Categoria> servicesC, IAPIRest<Producto> servicesP) 
+        public HomeViewModel(IServices<Categoria> servicesC, IServices<Producto> servicesP) 
         {
             this.servicesC = servicesC;
             this.servicesP = servicesP;
