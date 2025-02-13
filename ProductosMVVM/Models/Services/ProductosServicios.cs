@@ -1,5 +1,5 @@
 ﻿using ProductosMVVM.Models.Dataclasses;
-using ProductosMVVM.Models.RestApi;
+using ProductosMVVM.RestApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;

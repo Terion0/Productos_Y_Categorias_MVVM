@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProductosMVVM.Models.RestApi
+namespace ProductosMVVM.RestApi
 {
     internal interface IAPIRest<T>
     {

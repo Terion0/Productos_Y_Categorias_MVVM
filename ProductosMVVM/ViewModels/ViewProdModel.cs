@@ -12,7 +12,6 @@ using System.Windows.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ProductosMVVM.Models.Dataclasses;
-using ProductosMVVM.Models.RestApi;
 using ProductosMVVM.Models.Services;
 namespace ProductosMVVM.ViewModels
 {

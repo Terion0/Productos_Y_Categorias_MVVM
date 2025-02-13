@@ -8,7 +8,7 @@ using System.Windows;
 using ProductosMVVM.Data;
 using Microsoft.EntityFrameworkCore;
 using ProductosMVVM.Models.Services;
-using ProductosMVVM.Models.RestApi;
+using ProductosMVVM.RestApi;
 
 namespace ProductosMVVM
 {

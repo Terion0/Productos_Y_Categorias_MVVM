@@ -8,7 +8,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ProductosMVVM.Models.RestApi
+namespace ProductosMVVM.RestApi
 {
     internal class APIProd : IAPIRest<Producto>
     {
