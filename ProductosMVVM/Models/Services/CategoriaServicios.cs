@@ -1,5 +1,5 @@
 ﻿using ProductosMVVM.Models.Dataclasses;
-using ProductosMVVM.Models.Repositories;
+using ProductosMVVM.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

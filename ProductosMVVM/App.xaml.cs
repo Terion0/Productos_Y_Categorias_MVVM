@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ProductosMVVM.Models.Dataclasses;
-using ProductosMVVM.Models.Repositories;
+using ProductosMVVM.Repositories;
 using ProductosMVVM.ViewModels;
 using ProductosMVVM.Views;
 using System.Configuration;
@@ -40,9 +40,9 @@ namespace ProductosMVVM
 
             services.AddTransient<ViewGraphics>();
             services.AddTransient<GraphicsViewModel>();
+            services.AddScoped<IRepository<Categoria>, Rcategoria>();
+            services.AddScoped<IRepository<Producto>, Rproductos>();
 
-
-        
             services.AddSingleton<IServices<Categoria>, CategoriaServicios>();
             services.AddSingleton<IServices<Producto>, ProductoServicios>();
             services.AddSingleton<SettinsService>();

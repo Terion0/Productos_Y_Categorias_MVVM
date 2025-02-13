@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProductosMVVM.Models.Repositories
+namespace ProductosMVVM.Repositories
 {
     internal interface IRepository<T>
     {

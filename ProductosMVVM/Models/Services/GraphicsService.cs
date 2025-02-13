@@ -2,7 +2,7 @@
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using ProductosMVVM.Models.Dataclasses;
-using ProductosMVVM.Models.Repositories;
+using ProductosMVVM.Repositories;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;

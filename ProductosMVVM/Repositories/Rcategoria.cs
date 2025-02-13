@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProductosMVVM.Models.Dataclasses;
-using ProductosMVVM.Models.Repositories.DataAcces;
 using ProductosMVVM.Data;
 
-namespace ProductosMVVM.Models.Repositories
+namespace ProductosMVVM.Repositories
 {
     internal class Rcategoria(AppDbContext contexto) : IRepository<Categoria>
     {
