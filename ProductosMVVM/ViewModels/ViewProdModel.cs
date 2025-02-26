@@ -18,7 +18,7 @@ namespace ProductosMVVM.ViewModels
     partial class ViewOneModel : ObservableObject
     {
         private readonly IServices<Producto> servicesP;
-
+        private readonly IServices<Categoria> servicesC;
         [ObservableProperty]
         public Producto _ProductoSeleccionado;
         [ObservableProperty]
@@ -40,9 +40,10 @@ namespace ProductosMVVM.ViewModels
         [ObservableProperty]
         public string _ImagenProd = "";
 
-        public ViewOneModel(IServices<Producto> servicesP)
-        {
+        public ViewOneModel(IServices<Producto> servicesP, IServices<Categoria> servicesC)
+        {   
             this.servicesP = servicesP;
+            this.servicesC = servicesC;
             Sinchronice();
 
         }
@@ -66,15 +67,15 @@ namespace ProductosMVVM.ViewModels
             }
         }
         [RelayCommand]
-        private void ModificarProducto()
+        private async void ModificarProducto()
         {
             int cat = ConvertirAInt(IdCatProd);
             if (cat != -1)
             {
                 if (ProductoSeleccionado != null)
                 {
-               //     Categoria c = servicesC.Get(cat);
-               //     ProductoSeleccionado.IdCategoria = c.Id;
+                  Categoria c =await servicesC.Get(cat);
+                  ProductoSeleccionado.IdCategoria = c.Id;
                     ProductoSeleccionado.Nombre = NombreProd;
                     ProductoSeleccionado.Precio= ConvertirADouble(PrecioProd);
                     ProductoSeleccionado.Descripcion=DescripcionProd;
@@ -84,19 +85,19 @@ namespace ProductosMVVM.ViewModels
             }
         }
         [RelayCommand]
-        private void AñadirProducto()
+        private async void AñadirProducto()
         {
             int cat = ConvertirAInt(IdCatProd);
             if (cat != -1)
             {
-              //  Categoria c = servicesC.Get(cat);
+                Categoria c = await servicesC.Get(cat);
                 Producto p = new();
                 p.Nombre = NombreProd;
                 p.Precio= ConvertirADouble(PrecioProd);
                 p.Descripcion = DescripcionProd;
-            //    p.IdCategoria = c.Id;
+                p.IdCategoria = c.Id;
                 p.Imagen = "";
-             //   servicesP.Add(p);   
+                servicesP.Add(p);   
                 ProductoSeleccionado = null;
                 limpiar();
                

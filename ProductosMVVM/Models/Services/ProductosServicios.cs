@@ -14,7 +14,7 @@ namespace ProductosMVVM.Models.Services
 
         public void Add(Producto item)
         {
-
+            Rprod.Create(item);
         }
 
         public Task<Producto> Get(int id)
@@ -26,6 +26,7 @@ namespace ProductosMVVM.Models.Services
         {
             return Rprod.GetAll();
         }
+        
 
         public void Remove(Producto item)
         {

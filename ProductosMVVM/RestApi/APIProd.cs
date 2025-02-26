@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProductosMVVM.Models.Dataclasses;
+using ProductosMVVM.Models.Dataclasses.DTO;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -27,82 +29,93 @@ namespace ProductosMVVM.RestApi
 
         }
 
-        public Task Create(Producto objeto)
+        public async Task Create(Producto objeto)
         {
-            throw new NotImplementedException();
+            Uri uri = new Uri("http://localhost:70/productos"); 
+            try
+            {         
+                string jsonContent = JsonSerializer.Serialize(objeto);
+                StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await _httpClient.PostAsync(uri, content);  
+            }
+            catch (Exception ex)
+            { 
+                Console.WriteLine($"Exception: {ex.Message}");
+            }
         }
-
-        public Task<Producto> Get(int id)
+        public async Task<Producto> Get(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<Producto>> GetAll()
-        {
-            List<Producto> deAPI = new();
-       
-            Uri uri = new Uri(string.Format("https://api.escuelajs.co/api/v1/products", string.Empty));
+            Producto deAPI = new();
+            Uri uri = new Uri("http://localhost:70/productos/" + id);
             try
             {
-              
                 HttpResponseMessage response = await _httpClient.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
-                   
                     string content = await response.Content.ReadAsStringAsync();
-
-                    using (JsonDocument doc = JsonDocument.Parse(content))
-                    {
-                        JsonElement array = doc.RootElement;
-                        foreach (JsonElement jsonProduct in array.EnumerateArray())
-                        {
-                            string imagenFiltrar = jsonProduct.GetProperty("images")[0].GetString();
-                            imagenFiltrar = imagenFiltrar.Replace("[", "").Replace("]", "").Replace("\\", "").Replace("\"", "");
-                            Producto producto = new Producto
-                                {
-                                    Nombre = jsonProduct.GetProperty("title").GetString(),
-                                    Descripcion = jsonProduct.GetProperty("description").GetString(),
-                                    Precio = jsonProduct.GetProperty("price").GetInt32(),
-                                    IdCategoria = jsonProduct.GetProperty("category").GetProperty("id").GetInt32(),
-                                    IdProducto = jsonProduct.GetProperty("id").GetInt32(),
-                                    Imagen = imagenFiltrar
-                                };
-                             deAPI.Add(producto);
-                            }                       
-                        }
-
-                    
+                    deAPI = JsonSerializer.Deserialize<Producto>(content);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
             return deAPI;
         }
-        
-
-        public async Task Remove(Producto objeto)
+        public async Task<List<Producto>> GetAll()
         {
-            Uri uri = new Uri($"https://api.escuelajs.co/api/v1/products/{objeto.IdProducto}");
+            List<Producto> deAPI = new List<Producto>();
+            Uri uri = new Uri("http://localhost:70/productos");
             try
             {
-                HttpResponseMessage response = await _httpClient.DeleteAsync(uri);
+                HttpResponseMessage response = await _httpClient.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("Producto eliminado correctamente.");
-                }     
+                    string content = await response.Content.ReadAsStringAsync();
+                    deAPI = JsonSerializer.Deserialize<List<Producto>>(content);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Excepción al eliminar el producto: {ex.Message}");
+                MessageBox.Show(ex.Message);
+            }
+            return deAPI;
+        }
+       
+
+        public async Task Remove(Producto objeto)
+        {
+            Uri uri = new Uri("http://localhost:70/productos/" + objeto.IdProducto);
+            try
+            {
+                HttpResponseMessage response = await _httpClient.DeleteAsync(uri);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
-
         public async Task Update(Producto objeto)
         {
-            throw new NotImplementedException();
+            Uri uri = new Uri("http://localhost:70/productos/" + objeto.IdProducto);
+
+            try
+            {
+                ProductoUp ProductoUpdate = new();
+                ProductoUpdate.Nombre = objeto.Nombre;
+                ProductoUpdate.Precio = objeto.Precio;
+                ProductoUpdate.Descripcion = objeto.Descripcion;
+                ProductoUpdate.Imagen = objeto.Imagen;
+                ProductoUpdate.IdCategoria = objeto.IdCategoria;
+                string jsonContent = JsonSerializer.Serialize(ProductoUpdate);
+                StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await _httpClient.PatchAsync(uri, content);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Excepción: {ex.Message}");
+
+            }
 
         }
     }

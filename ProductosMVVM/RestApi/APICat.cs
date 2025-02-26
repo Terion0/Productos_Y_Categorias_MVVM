@@ -31,28 +31,18 @@ namespace ProductosMVVM.RestApi
 
         public async Task Create(Categoria categoria)
         {
-            // Crear la URL para el endpoint
-            Uri uri = new Uri("http://localhost:70/categorias"); // Ajusta la URL de la API según corresponda
+       
+            Uri uri = new Uri("http://localhost:70/categorias");
 
             try
             {
-                // Serializar el objeto Categoria a JSON
+          
                 string jsonContent = JsonSerializer.Serialize(categoria);
                 StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-
-                // Enviar la solicitud POST
                 HttpResponseMessage response = await _httpClient.PostAsync(uri, content);
-
-                // Comprobar si la respuesta es exitosa
-                if (!response.IsSuccessStatusCode)
-                {
-                    // Si la respuesta no fue exitosa, puedes manejar el error aquí
-                    Console.WriteLine($"Error: {response.StatusCode}");
-                }
             }
             catch (Exception ex)
             {
-                // Manejar errores (como problemas de conexión)
                 Console.WriteLine($"Exception: {ex.Message}");
             }
         }
@@ -67,11 +57,8 @@ namespace ProductosMVVM.RestApi
             {
                 HttpResponseMessage response = await _httpClient.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
-                {
-                  
+                {      
                     string content = await response.Content.ReadAsStringAsync();
-
-                   
                     deAPI = JsonSerializer.Deserialize<Categoria>(content);
                 }
             }
@@ -79,23 +66,19 @@ namespace ProductosMVVM.RestApi
             {
                 MessageBox.Show(ex.Message);
             }
-
             return deAPI;
         }
 
         public async Task<List<Categoria>> GetAll()
         {
             List<Categoria> deAPI = new List<Categoria>();
-
             Uri uri = new Uri("http://localhost:70/categorias");
             try
             {
                 HttpResponseMessage response = await _httpClient.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
-                {
-                   
+                {  
                     string content = await response.Content.ReadAsStringAsync();
-
                     deAPI = JsonSerializer.Deserialize<List<Categoria>>(content);
                 }
             }
@@ -111,13 +94,10 @@ namespace ProductosMVVM.RestApi
 
         public async Task Remove(Categoria objeto)
         {
-
-
             Uri uri = new Uri("http://localhost:70/categorias/" + objeto.Id);
             try
             {
                 HttpResponseMessage response = await _httpClient.DeleteAsync(uri);
-             
             }
             catch (Exception ex)
             {
@@ -126,33 +106,20 @@ namespace ProductosMVVM.RestApi
         }
 
         public async Task Update(Categoria objeto)
-        {
-            // La URL de la API para actualizar la categoría
-            Uri uri = new Uri("http://localhost:70/categorias/" + objeto.Id);  // Ajusta la URL según tu configuración
-
+        {            
+            Uri uri = new Uri("http://localhost:70/categorias/" + objeto.Id);  
             try
             {
                 CategoriaUp categoriaUpdate = new();
-                categoriaUpdate.Nombre = objeto.Nombre;
-                // Serializamos el objeto CategoriaUpdate a JSON
+                categoriaUpdate.Nombre = objeto.Nombre;  
                 string jsonContent = JsonSerializer.Serialize(categoriaUpdate);
                 StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-
-                // Realizamos la solicitud PATCH
                 HttpResponseMessage response = await _httpClient.PatchAsync(uri, content);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    // Si la respuesta no es exitosa, lanzar excepción o manejar error
-                    string errorResponse = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Error al actualizar categoría: {response.StatusCode}, {errorResponse}");
-                }
             }
             catch (Exception ex)
             {
-                // Manejo de excepciones
                 Console.WriteLine($"Excepción: {ex.Message}");
-                throw;
+            
             }
         }
     }

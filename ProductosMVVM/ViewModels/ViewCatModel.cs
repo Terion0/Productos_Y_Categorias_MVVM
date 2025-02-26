@@ -45,7 +45,7 @@ namespace ProductosMVVM.ViewModels
         }
 
         [RelayCommand]
-        private void EliminarCategoria()
+        private async void EliminarCategoria()
         {
             if (CategoriaSeleccionado != null)
             {
@@ -54,13 +54,13 @@ namespace ProductosMVVM.ViewModels
             }
         }
         [RelayCommand]
-        private void ModificarCategoria()
+        private async void ModificarCategoria()
         {
             if (CategoriaSeleccionado != null)
             {
           
                 CategoriaSeleccionado.Nombre = NombreCat;
-                servicesC.Update(CategoriaSeleccionado);
+                 servicesC.Update(CategoriaSeleccionado);
                 limpiar();
              
               

@@ -5,24 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
+using ProductosMVVM.Models.Dataclasses.DTO;
 
-public class Producto 
+public class Producto : ProductoUp
     {
         private int id;
-        private string nombre;
-        private string descripcion;
-        private double precio;
-        private int idCategoria;
-        private string imagen;
-
-
-        public string Nombre { get => nombre; set => nombre = value; }
-        public string Descripcion { get =>descripcion; set =>descripcion =value; }
-        public double Precio { get =>precio; set =>precio = value; }
-        public int IdCategoria { get =>idCategoria; set =>idCategoria=value; }
+       
+        [JsonPropertyName("id")]
         public int IdProducto { get =>id; set => id=value; }
-        public string Imagen { get=>imagen; set=>imagen=value; }
-
 
         override public string ToString()
         {
