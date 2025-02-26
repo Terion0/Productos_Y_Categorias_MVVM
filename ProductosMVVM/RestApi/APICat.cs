@@ -31,6 +31,7 @@ namespace ProductosMVVM.RestApi
         public Task<Categoria> Get(int id)
         {
             throw new NotImplementedException();
+            //asdasdasd
         }
 
         public async Task<List<Categoria>> GetAll()
