@@ -27,6 +27,11 @@ namespace ProductosMVVM.RestApi
 
         }
 
+        public Task Create(Producto objeto)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<Producto> Get(int id)
         {
             throw new NotImplementedException();

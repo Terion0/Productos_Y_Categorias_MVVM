@@ -13,7 +13,7 @@ namespace ProductosMVVM.Models.Services
 
         public void Add(Categoria item)
         {
-
+            Rcat.Create(item);
         }
 
         public Task<Categoria> Get(int id)

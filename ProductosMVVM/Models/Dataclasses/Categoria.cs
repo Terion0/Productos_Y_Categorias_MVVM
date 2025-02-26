@@ -1,29 +1,27 @@
-﻿using System;
+﻿using ProductosMVVM.Models.Dataclasses.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ProductosMVVM.Models.Dataclasses
 {
 
-    public class Categoria
+    public class Categoria : CategoriaUp
     {
         private int id;
-        private string nombre;
+       
 
+        [JsonPropertyName("id")]
         public int Id
         {
             get { return id; }
             set { id = value; }
         }
-
-        public string Nombre
-        {
-            get { return nombre; }
-            set { nombre = value; }
-        }
+       
 
 
         override public string ToString()

@@ -8,6 +8,7 @@ namespace ProductosMVVM.RestApi
 {
     internal interface IAPIRest<T>
     {
+         Task Create(T objeto);
          Task<List<T>> GetAll();
          Task<T> Get(int id);
          Task Remove(T objeto);

@@ -74,7 +74,7 @@ namespace ProductosMVVM.ViewModels
         {
             Categoria c = new Categoria();
             c.Nombre=NombreCat;
-         //   servicesC.Add(c);   
+            servicesC.Add(c);   
             CategoriaSeleccionado = null;
             limpiar();       
         }
