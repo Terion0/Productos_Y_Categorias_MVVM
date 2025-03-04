@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ProductosMVVM.Models.Dataclasses;
+using ProductosMVVM.Models.Dataclasses.DTO;
 using ProductosMVVM.Models.Services;
 namespace ProductosMVVM.ViewModels
 {
@@ -36,16 +38,17 @@ namespace ProductosMVVM.ViewModels
             var aDevolver = await servicesC.GetAll();
 
             ListaCategorias = new ObservableCollection<Categoria>(aDevolver);
-
+          
         }
-        partial void OnCategoriaSeleccionadoChanged(Categoria value)
+        partial  void OnCategoriaSeleccionadoChanged(Categoria value)
         {
             if (value != null)
+                CategoriaSeleccionado = value;
                 MostrarInfo();
         }
 
         [RelayCommand]
-        private async void EliminarCategoria()
+        private  void EliminarCategoria()
         {
             if (CategoriaSeleccionado != null)
             {
@@ -54,13 +57,13 @@ namespace ProductosMVVM.ViewModels
             }
         }
         [RelayCommand]
-        private async void ModificarCategoria()
+        private  void ModificarCategoria()
         {
             if (CategoriaSeleccionado != null)
             {
-          
+                   
                 CategoriaSeleccionado.Nombre = NombreCat;
-                 servicesC.Update(CategoriaSeleccionado);
+                servicesC.Update(CategoriaSeleccionado);
                 limpiar();
              
               
@@ -70,8 +73,9 @@ namespace ProductosMVVM.ViewModels
     
 
         [RelayCommand]
-        private void AñadirCategoria()
+        private  void AñadirCategoria()
         {
+            
             Categoria c = new Categoria();
             c.Nombre=NombreCat;
             servicesC.Add(c);   
@@ -86,12 +90,14 @@ namespace ProductosMVVM.ViewModels
             ListaCategorias.Clear();
             ListaCategorias = new ObservableCollection<Categoria>(await servicesC.GetAll());
         }
-        public void MostrarInfo()
+        public  void MostrarInfo()
         {
           IdCat = CategoriaSeleccionado.Id.ToString();
           NombreCat = CategoriaSeleccionado.Nombre;
           
         }
+
+       
     }
     }
 

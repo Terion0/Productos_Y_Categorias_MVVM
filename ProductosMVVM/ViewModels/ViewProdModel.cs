@@ -57,7 +57,7 @@ namespace ProductosMVVM.ViewModels
         }
 
         [RelayCommand]
-        private void EliminarProducto()
+        private  void EliminarProducto()
         {
             if (ProductoSeleccionado != null)
             {
@@ -67,15 +67,14 @@ namespace ProductosMVVM.ViewModels
             }
         }
         [RelayCommand]
-        private async void ModificarProducto()
+        private  void ModificarProducto()
         {
             int cat = ConvertirAInt(IdCatProd);
             if (cat != -1)
             {
                 if (ProductoSeleccionado != null)
                 {
-                  Categoria c =await servicesC.Get(cat);
-                  ProductoSeleccionado.IdCategoria = c.Id;
+                    ProductoSeleccionado.IdCategoria = cat;
                     ProductoSeleccionado.Nombre = NombreProd;
                     ProductoSeleccionado.Precio= ConvertirADouble(PrecioProd);
                     ProductoSeleccionado.Descripcion=DescripcionProd;
@@ -106,9 +105,8 @@ namespace ProductosMVVM.ViewModels
 
 
         [RelayCommand]
-        private void MostrarInf(Producto sender) 
+        private  void MostrarInf(Producto sender) 
         {
-            // limpiar();
             ProductoSeleccionado = sender;
             MostrarInfo();
         }
@@ -125,7 +123,7 @@ namespace ProductosMVVM.ViewModels
             ListaProductos.Clear();
             ListaProductos = new ObservableCollection<Producto>( await servicesP.GetAll());
         }
-        public void MostrarInfo()
+        public  void MostrarInfo()
         {
             IdProd = ProductoSeleccionado.IdProducto.ToString();
             NombreProd = ProductoSeleccionado.Nombre;

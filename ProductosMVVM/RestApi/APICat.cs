@@ -26,17 +26,13 @@ namespace ProductosMVVM.RestApi
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 WriteIndented = true
             };
-
         }
 
         public async Task Create(Categoria categoria)
         {
-       
             Uri uri = new Uri("http://localhost:70/categorias");
-
             try
             {
-          
                 string jsonContent = JsonSerializer.Serialize(categoria);
                 StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await _httpClient.PostAsync(uri, content);
