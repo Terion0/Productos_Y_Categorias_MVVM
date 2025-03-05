@@ -12,7 +12,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     protected override void OnModelCreating(ModelBuilder modelBuilder) =>
         modelBuilder.Entity<Producto>(entity =>
         {
-            entity.HasKey(e => e.IdProducto);
+            entity.HasKey(e => e.Id);
 
             entity.Property(e => e.Nombre)
                 .HasMaxLength(255)
@@ -29,7 +29,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.Property(e => e.Precio)
                 .HasColumnType("decimal(18,2)");
 
-            entity.Property(e => e.IdCategoria)
+            entity.Property(e => e.Idcategoria)
                 .IsRequired();
 
 

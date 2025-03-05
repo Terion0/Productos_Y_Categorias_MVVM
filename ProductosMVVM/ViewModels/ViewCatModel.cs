@@ -43,8 +43,9 @@ namespace ProductosMVVM.ViewModels
         partial  void OnCategoriaSeleccionadoChanged(Categoria value)
         {
             if (value != null)
-                CategoriaSeleccionado = value;
                 MostrarInfo();
+                CategoriaSeleccionado = value;
+                
         }
 
         [RelayCommand]

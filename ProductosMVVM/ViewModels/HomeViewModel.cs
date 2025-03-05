@@ -44,7 +44,7 @@ namespace ProductosMVVM.ViewModels
         
         {
             var prods = await servicesP.GetAll();
-            ListaProductos = new ObservableCollection<Producto>(prods.FindAll(prod => prod.IdCategoria == CategoriaSeleccionada.Id));
+            ListaProductos = new ObservableCollection<Producto>(prods.FindAll(prod => prod.Idcategoria == CategoriaSeleccionada.Id));
         }
 
         partial  void OnCategoriaSeleccionadaChanged(Categoria value)

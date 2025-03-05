@@ -32,7 +32,7 @@ namespace ProductosMVVM.Models.Services
             ISeries[] Tarta = categoriasAgrupadas.Select(cat => new PieSeries<double>
             {
                 Name = cat.Nombre,
-                Values = new[] { ((double)productos.Count(p => p.IdCategoria == cat.Id) / totalProductos) * 100 }
+                Values = new[] { ((double)productos.Count(p => p.Idcategoria == cat.Id) / totalProductos) * 100 }
             }).ToArray();
 
             return Tarta;
@@ -64,7 +64,7 @@ namespace ProductosMVVM.Models.Services
             int[] cantidad = new int[categorias.Count];
             for (int i = 0; i < cantidad.Length; i++)
             {
-                cantidad[i] = productos.Count(p => p.IdCategoria == categorias[i].Id);
+                cantidad[i] = productos.Count(p => p.Idcategoria == categorias[i].Id);
             }
             ISeries[] Values =
             {

@@ -12,8 +12,7 @@ public class Producto : ProductoUp
     {
         private int id;
        
-        [JsonPropertyName("id")]
-        public int IdProducto { get =>id; set => id=value; }
+        public int Id { get =>id; set => id=value; }
 
         override public string ToString()
         {

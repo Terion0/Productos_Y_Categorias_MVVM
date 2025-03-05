@@ -15,7 +15,6 @@ namespace ProductosMVVM.Models.Dataclasses
         private int id;
        
 
-        [JsonPropertyName("id")]
         public int Id
         {
             get { return id; }

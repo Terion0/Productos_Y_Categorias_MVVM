@@ -12,24 +12,20 @@ namespace ProductosMVVM.Models.Dataclasses.DTO
         private string nombre;
         private string descripcion;
         private double precio;
-        private int idCategoria;
+        private int idcategoria;
         private string imagen;
 
-        [JsonPropertyName("nombre")]
         public string Nombre { get => nombre; set => nombre = value; }
 
-        [JsonPropertyName("descripcion")]
         public string Descripcion { get => descripcion; set => descripcion = value; }
 
-        [JsonPropertyName("precio")]
         public double Precio { get => precio; set => precio = value; }
 
         [JsonPropertyName("id_categoria")]
-        public int IdCategoria { get => idCategoria; set => idCategoria = value; }
+        public int Idcategoria { get => idcategoria; set => idcategoria = value; }
 
         [JsonPropertyName("uri_imagen")]
         public string Imagen { get => imagen; set => imagen = value; }
-
 
     }
 }

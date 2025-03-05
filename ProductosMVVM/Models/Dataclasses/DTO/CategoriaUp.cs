@@ -11,7 +11,6 @@ namespace ProductosMVVM.Models.Dataclasses.DTO
     {
         private string nombre;
 
-        [JsonPropertyName("nombre")]
         public string? Nombre
         {
             get { return nombre; }

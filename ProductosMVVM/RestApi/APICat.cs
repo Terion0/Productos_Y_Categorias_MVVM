@@ -30,16 +30,22 @@ namespace ProductosMVVM.RestApi
 
         public async Task Create(Categoria categoria)
         {
-            Uri uri = new Uri("http://localhost:70/categorias");
+            Uri uri = new Uri(string.Format("http://localhost:70/categorias", string.Empty));
             try
             {
-                string jsonContent = JsonSerializer.Serialize(categoria);
+                string jsonContent = JsonSerializer.Serialize(categoria,_serializerOptions);
                 StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
                 HttpResponseMessage response = await _httpClient.PostAsync(uri, content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Error en la creación: " + response.StatusCode);
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception: {ex.Message}");
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -48,14 +54,16 @@ namespace ProductosMVVM.RestApi
         {
             Categoria deAPI = new();
 
-            Uri uri = new Uri("http://localhost:70/categorias/"+id);
+            Uri uri = new Uri(string.Format("http://localhost:70/categorias/"+id, string.Empty));
             try
             {
+               
                 HttpResponseMessage response = await _httpClient.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {      
                     string content = await response.Content.ReadAsStringAsync();
-                    deAPI = JsonSerializer.Deserialize<Categoria>(content);
+                    deAPI = JsonSerializer.Deserialize<Categoria>(content, _serializerOptions);
+                  
                 }
             }
             catch (Exception ex)
@@ -68,14 +76,14 @@ namespace ProductosMVVM.RestApi
         public async Task<List<Categoria>> GetAll()
         {
             List<Categoria> deAPI = new List<Categoria>();
-            Uri uri = new Uri("http://localhost:70/categorias");
+            Uri uri = new Uri(string.Format("http://localhost:70/categorias", string.Empty));
             try
             {
                 HttpResponseMessage response = await _httpClient.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {  
                     string content = await response.Content.ReadAsStringAsync();
-                    deAPI = JsonSerializer.Deserialize<List<Categoria>>(content);
+                    deAPI = JsonSerializer.Deserialize<List<Categoria>>(content,_serializerOptions);
                 }
             }
             catch (Exception ex)
@@ -86,14 +94,20 @@ namespace ProductosMVVM.RestApi
             return deAPI;
         }
 
+       
 
-
+     
         public async Task Remove(Categoria objeto)
         {
-            Uri uri = new Uri("http://localhost:70/categorias/" + objeto.Id);
+            Uri uri = new Uri(string.Format("http://localhost:70/categorias/"+objeto.Id,string.Empty));
             try
             {
                 HttpResponseMessage response = await _httpClient.DeleteAsync(uri);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Error al eliminar la categoría: " + response.StatusCode);
+                }
             }
             catch (Exception ex)
             {
@@ -102,20 +116,25 @@ namespace ProductosMVVM.RestApi
         }
 
         public async Task Update(Categoria objeto)
-        {            
-            Uri uri = new Uri("http://localhost:70/categorias/" + objeto.Id);  
+        {
+            Uri uri = new Uri(string.Format("http://localhost:70/categorias/"+objeto.Id,string.Empty));
             try
             {
-                CategoriaUp categoriaUpdate = new();
-                categoriaUpdate.Nombre = objeto.Nombre;  
-                string jsonContent = JsonSerializer.Serialize(categoriaUpdate);
+                CategoriaUp categoriaUpdate = new() ;
+                categoriaUpdate.Nombre = objeto.Nombre;
+                string jsonContent = JsonSerializer.Serialize(categoriaUpdate, _serializerOptions);
                 StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
                 HttpResponseMessage response = await _httpClient.PatchAsync(uri, content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Error al actualizar la categoría: " + response.StatusCode);
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Excepción: {ex.Message}");
-            
+                MessageBox.Show(ex.Message);
             }
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -74,7 +75,7 @@ namespace ProductosMVVM.ViewModels
             {
                 if (ProductoSeleccionado != null)
                 {
-                    ProductoSeleccionado.IdCategoria = cat;
+                    ProductoSeleccionado.Idcategoria = cat;
                     ProductoSeleccionado.Nombre = NombreProd;
                     ProductoSeleccionado.Precio= ConvertirADouble(PrecioProd);
                     ProductoSeleccionado.Descripcion=DescripcionProd;
@@ -84,22 +85,32 @@ namespace ProductosMVVM.ViewModels
             }
         }
         [RelayCommand]
-        private async void AñadirProducto()
+        private async Task AñadirProducto()
         {
             int cat = ConvertirAInt(IdCatProd);
             if (cat != -1)
             {
                 Categoria c = await servicesC.Get(cat);
-                Producto p = new();
-                p.Nombre = NombreProd;
-                p.Precio= ConvertirADouble(PrecioProd);
-                p.Descripcion = DescripcionProd;
-                p.IdCategoria = c.Id;
-                p.Imagen = "";
-                servicesP.Add(p);   
-                ProductoSeleccionado = null;
-                limpiar();
-               
+              
+                if (c.Id != 0)
+                {
+                    Debug.WriteLine(c.Nombre);
+                    Debug.WriteLine(c.Id);
+                    Producto p = new();
+                    p.Nombre = NombreProd;
+                    p.Precio = ConvertirADouble(PrecioProd);
+                    p.Descripcion = DescripcionProd;
+                    p.Idcategoria = c.Id;
+                   
+                    p.Imagen = "sadasdasdasd";
+                    Debug.WriteLine(p.Nombre);
+                    Debug.WriteLine(p.Precio);
+                    Debug.WriteLine(p.Descripcion);
+                    Debug.WriteLine(p.Idcategoria);
+                    servicesP.Add(p);
+                    ProductoSeleccionado = null;
+                    limpiar();
+                }
             }
         }
 
@@ -125,9 +136,9 @@ namespace ProductosMVVM.ViewModels
         }
         public  void MostrarInfo()
         {
-            IdProd = ProductoSeleccionado.IdProducto.ToString();
+            IdProd = ProductoSeleccionado.Id.ToString();
             NombreProd = ProductoSeleccionado.Nombre;
-            IdCatProd = ProductoSeleccionado.IdCategoria.ToString();
+            IdCatProd = ProductoSeleccionado.Idcategoria.ToString();
             PrecioProd = ProductoSeleccionado.Precio.ToString();
             DescripcionProd = ProductoSeleccionado.Descripcion;
             ImagenProd = ProductoSeleccionado.Imagen;
